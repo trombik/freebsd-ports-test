@@ -21,24 +21,27 @@ jobs:
         sync: rsync
         copyback: true
         prepare: |
+          pwd
+          ls -al
           pkg install -y ports-mgmt/poudriere-devel devel/git
-          mkdir -p ccache poudriere distfiles
+          mkdir -p work/ccache work/poudriere work/distfiles
 
           echo "" > /usr/local/etc/poudriere.conf
           echo "NO_ZFS=yes" >> /usr/local/etc/poudriere.conf
           echo "RESOLV_CONF=/etc/resolv.conf" >> /usr/local/etc/poudriere.conf
           echo "USE_PORTLINT=no" >> /usr/local/etc/poudriere.conf
-          echo "DISTFILES_CACHE=`pwd`/distfiles" >> /usr/local/etc/poudriere.conf
-          echo "CCACHE_DIR=`pwd`/ccache"
+          echo "DISTFILES_CACHE=`pwd`/work/distfiles" >> /usr/local/etc/poudriere.conf
+          echo "CCACHE_DIR=`pwd`/work/ccache"
           echo "SVN_HOST=svn.FreeBSD.org" >> /usr/local/etc/poudriere.conf
           echo "GIT_PORTSURL=${PORTS_URL}" >> /usr/local/etc/poudriere.conf
-          echo "BASEFS=`pwd`/poudriere" >> /usr/local/etc/poudriere.conf
+          echo "BASEFS=`pwd`/work/poudriere" >> /usr/local/etc/poudriere.conf
           cat /usr/local/etc/poudriere.conf
 
           poudriere ports -c -p default -m git+https -B main
           poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
           pwd
           ls -alh
+          ls -alh work
 
         run: |
           whoami
