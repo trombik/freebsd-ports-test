@@ -31,7 +31,7 @@ jobs:
           echo "DISTFILES_CACHE=`pwd`/distfiles" >> /usr/local/etc/poudriere.conf
           echo "CCACHE_DIR=`pwd`/ccache"
           echo "SVN_HOST=svn.FreeBSD.org" >> /usr/local/etc/poudriere.conf
-          echo "GIT_PORTSURL=${{PORTS_URL}}" >> /usr/local/etc/poudriere.conf
+          echo "GIT_PORTSURL=${PORTS_URL}" >> /usr/local/etc/poudriere.conf
           echo "BASEFS=`pwd`/poudriere" >> /usr/local/etc/poudriere.conf
 
           poudriere ports -c -p default -m git+https -B main
