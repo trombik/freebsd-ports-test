@@ -33,10 +33,12 @@ jobs:
           echo "SVN_HOST=svn.FreeBSD.org" >> /usr/local/etc/poudriere.conf
           echo "GIT_PORTSURL=${PORTS_URL}" >> /usr/local/etc/poudriere.conf
           echo "BASEFS=`pwd`/poudriere" >> /usr/local/etc/poudriere.conf
+          cat /usr/local/etc/poudriere.conf
 
           poudriere ports -c -p default -m git+https -B main
           poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
-
+          pwd
+          ls -alh
 
         run: |
           whoami
@@ -45,8 +47,5 @@ jobs:
 
     - name: Test on the host
       run: |
+        pwd
         ls -alh
-        ls -al ports
-        ls -al distfiles
-        ls -al ccache
-        ls -al poudriere
