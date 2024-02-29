@@ -21,7 +21,7 @@ jobs:
         sync: rsync
         copyback: true
         prepare: |
-          pkg install -y ports-mgmt/poudriere-devel
+          pkg install -y ports-mgmt/poudriere-devel devel/git
           mkdir -p ccache poudriere distfiles
 
           echo "" > /usr/local/etc/poudriere.conf
@@ -35,7 +35,7 @@ jobs:
           echo "BASEFS=`pwd`/poudriere" >> /usr/local/etc/poudriere.conf
 
           poudriere ports -c -p default -m git+https -B main
-          poudriere jail -c 140amd64 -m ftp -v 14.0-RELEASE
+          poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
 
 
         run: |
