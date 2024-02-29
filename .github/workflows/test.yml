@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to run test in FreeBSD
     env:
+      PORTS_URL:  https://github.com/freebsd/freebsd-ports.git
       MYTOKEN2: "value2"
     steps:
     - uses: actions/checkout@v4
@@ -17,12 +18,35 @@ jobs:
       with:
         envs: 'MYTOKEN2'
         usesh: true
+        sync: rsync
+        copyback: true
         prepare: |
-          pkg install -y curl
+          pkg install -y ports-mgmt/poudriere-devel
+          mkdir -p ccache poudriere distfiles
+
+          echo "" > /usr/local/etc/poudriere.conf
+          echo "NO_ZFS=yes" >> /usr/local/etc/poudriere.conf
+          echo "RESOLV_CONF=/etc/resolv.conf" >> /usr/local/etc/poudriere.conf
+          echo "USE_PORTLINT=no" >> /usr/local/etc/poudriere.conf
+          echo "DISTFILES_CACHE=`pwd`/distfiles" >> /usr/local/etc/poudriere.conf
+          echo "CCACHE_DIR=`pwd`/ccache"
+          echo "SVN_HOST=svn.FreeBSD.org" >> /usr/local/etc/poudriere.conf
+          echo "GIT_PORTSURL=${{PORTS_URL}}" >> /usr/local/etc/poudriere.conf
+          echo "BASEFS=`pwd`/poudriere" >> /usr/local/etc/poudriere.conf
+
+          poudriere ports -c -p default -m git+https -B main
+          poudriere jail -c 140amd64 -m ftp -v 14.0-RELEASE
+
 
         run: |
-          pwd
-          ls -lah
           whoami
-          env
-          freebsd-version
+          ls -alh
+          poudriere bulk -j 140amd64 -p default games/sl
+
+    - name: Test on the host
+      run: |
+        ls -alh
+        ls -al ports
+        ls -al distfiles
+        ls -al ccache
+        ls -al poudriere
