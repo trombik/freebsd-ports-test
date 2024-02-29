@@ -47,7 +47,8 @@ jobs:
           whoami
           ls -alh
           poudriere bulk -j 140amd64 -p default games/sl
-          rm -rf poudriere/jails poudriere/ports
+          ls -alh ../
+          rm -rf ../poudriere/ports ../poudriere/jails
 
     - name: Test on the host
       run: |
