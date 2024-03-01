@@ -1,5 +1,14 @@
 name: Test
 
+#   /home/runner/work
+#   ├── ccache
+#   ├── distfiles
+#   ├── freebsd-ports-test
+#   │   └── freebsd-ports-test
+#   └── poudriere
+#       ├── data
+#       ...
+
 on:
   - push
 
@@ -39,21 +48,12 @@ jobs:
 
           poudriere ports -c -p default -m git+https -B main
           poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
-          pwd
-          ls -alh
-          ls -alh work
 
         run: |
-          whoami
-          ls -alh
           poudriere bulk -j 140amd64 -p default games/sl
-          pwd
-          ls -alh ../
-          ls -alh /home/runner/work
-          ls -alh `pwd`
-          tree -d /home/runner/work
-          rm -rf ../poudriere/ports ../poudriere/jails
-          rm -rf /home/runner/work/poudriere/ports /home/runner/work/poudriere/jails
+          rm -rf /home/runner/work/poudriere/jails
+          rm -rf /home/runner/work/poudriere/ports
+          find /home/runner/work/poudriere/data -type l | xargs -n 1 rm
 
     - name: Test on the host
       run: |
