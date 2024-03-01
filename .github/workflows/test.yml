@@ -23,7 +23,7 @@ jobs:
         prepare: |
           pwd
           ls -al
-          pkg install -y ports-mgmt/poudriere-devel devel/git
+          pkg install -y ports-mgmt/poudriere-devel devel/git sysutils/tree
           mkdir -p work/ccache work/poudriere work/distfiles
 
           echo "" > /usr/local/etc/poudriere.conf
@@ -51,6 +51,7 @@ jobs:
           ls -alh ../
           ls -alh /home/runner/work
           ls -alh `pwd`
+          tree -d /home/runner/work
           rm -rf ../poudriere/ports ../poudriere/jails
           rm -rf /home/runner/work/poudriere/ports /home/runner/work/poudriere/jails
 
