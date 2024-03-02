@@ -53,7 +53,7 @@ jobs:
           poudriere bulk -j 140amd64 -p default games/sl
           rm -rf /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/ports
-          find /home/runner/work/poudriere/data -type l | xargs -n 1 rm
+          # find /home/runner/work/poudriere/data -type l | xargs -n 1 rm
 
     - name: Test on the host
       run: |
