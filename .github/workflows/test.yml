@@ -59,3 +59,4 @@ jobs:
       run: |
         pwd
         ls -alh
+        tree /home/runner/work/poudriere
