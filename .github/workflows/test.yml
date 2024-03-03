@@ -48,12 +48,25 @@ jobs:
 
           poudriere ports -c -p default -m git+https -B main
           poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
+          tree /home/runner/work/distfiles
 
         run: |
           poudriere bulk -j 140amd64 -p default games/sl
+          BULK_PATH=`poudriere status  -fH | cut -f 14`
+          LOG_PATH="${BULK_PATH}/logs"
+
+          for F in `ls -1 "${LOG_PATH}/errors"`; do
+            if [ -f "${F}" ]; then
+              echo "Error log: ${F}"
+              echo "--------------------------------"
+              cat "${F}"
+              echo "--------------------------------"
+            fi
+          done
+
+
           rm -rf /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/ports
-          # find /home/runner/work/poudriere/data -type l | xargs -n 1 rm
 
     - name: Test on the host
       run: |
@@ -61,8 +74,15 @@ jobs:
         ls -alh
         tree /home/runner/work/poudriere/data/logs
 
-    - name: Upoad logs
+    - name: Upload logs
       uses: actions/upload-artifact@v4
       with:
         name: poudriere-logs
         path: /home/runner/work/poudriere/data/logs
+
+
+    - name: Cache distfiles
+      uses: actions/cache@v4
+      with:
+        path: /home/runner/work/distfiles
+        key: ${{ hashFiles('**/Makefile') }}-${{ hashFiles('**/distinfo') }}
