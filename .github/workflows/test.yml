@@ -62,6 +62,7 @@ jobs:
             echo "--------------------------------"
             cat "${LOG_PATH}/${F}.log"
             echo "--------------------------------"
+          done
 
           for F in `ls -1 "${LOG_PATH}/errors"`; do
             if [ -f "${F}" ]; then
