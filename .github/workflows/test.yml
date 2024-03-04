@@ -90,8 +90,12 @@ jobs:
         path: /home/runner/work/poudriere/data/logs
 
 
+    - name: Get date
+      id: date
+      run: date +'DATE=%Y-%m-%d' >> "$GITHUB_OUTPUT"
+
     - name: Cache distfiles
       uses: actions/cache@v4
       with:
         path: /home/runner/work/distfiles
-        key: ${{ hashFiles('**/distinfo') }}
+        key: ${{ steps.date.outputs.DATE }}
