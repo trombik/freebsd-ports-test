@@ -51,7 +51,10 @@ jobs:
           poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
 
         run: |
+          pwd
+          tree .
           ORIGINS=`find * -type d -depth 1`
+          echo ${ORIGINS}
           BULK_PATH=`poudriere status  -fH | cut -f 14`
           LOG_PATH="${BULK_PATH}/logs"
 
