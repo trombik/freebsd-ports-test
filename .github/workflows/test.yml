@@ -33,7 +33,7 @@ jobs:
           pwd
           ls -al
           pkg install -y ports-mgmt/poudriere-devel devel/git sysutils/tree
-          mkdir -p work/ccache work/poudriere work/distfiles
+          mkdir -p work/ccache work/poudriere work/distfiles work/poudriere/data/logs/bulk
 
           # minimum configuration for poudriere
           echo "" > /usr/local/etc/poudriere.conf
