@@ -57,7 +57,7 @@ jobs:
           echo ${ORIGINS}
 
           for O in ${ORIGINS}; do
-            poudriere bulk -j 140amd64 -p default "${P}"
+            poudriere bulk -j 140amd64 -p default "${O}"
           done
           poudriere status -fH
           poudriere status -f
