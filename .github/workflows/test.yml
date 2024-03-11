@@ -55,14 +55,14 @@ jobs:
           tree .
           ORIGINS=`find * -type d -depth 1`
           echo ${ORIGINS}
-          poudriere status  -fH
-          poudriere status
-          BULK_PATH=`poudriere status  -fH | cut -f 14`
-          LOG_PATH="${BULK_PATH}/logs"
 
           for O in ${ORIGINS}; do
             poudriere bulk -j 140amd64 -p default "${P}"
           done
+          poudriere status -fH
+          poudriere status -f
+          BULK_PATH=`poudriere status  -fH | cut -f 14`
+          LOG_PATH="${BULK_PATH}/logs"
 
           BUILT_PORTS=`poudriere status  -fHr | grep "Built ports:" | cut -f 2 -d ":"`
 
