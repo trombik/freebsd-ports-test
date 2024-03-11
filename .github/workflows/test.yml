@@ -55,6 +55,8 @@ jobs:
           tree .
           ORIGINS=`find * -type d -depth 1`
           echo ${ORIGINS}
+          poudriere status  -fH
+          poudriere status
           BULK_PATH=`poudriere status  -fH | cut -f 14`
           LOG_PATH="${BULK_PATH}/logs"
 
