@@ -76,9 +76,10 @@ jobs:
           for F in ${BUILT_PORTS}; do
             echo "Built ports: ${F}"
             echo "--------------------------------"
-            cat "${LOG_PATH}/${F}.log"
+            cat "${LOG_PATH}/${F}-.log"
             echo "--------------------------------"
           done
+          ls -1 "${LOG_PATH}/errors"
 
           for F in `ls -1 "${LOG_PATH}/errors"`; do
             if [ -f "${F}" ]; then
