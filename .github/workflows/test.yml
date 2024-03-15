@@ -70,22 +70,18 @@ jobs:
           LOG_PATH="${BULK_PATH}/logs"
           tree ${LOG_PATH}
 
-          BUILT_PORTS=`poudriere status  -fHr | grep "Built ports:" | cut -f 2 -d ":"`
+          OVERLAY_PORTS=`find * -type d -depth 1`
+          echo "OVERLAY_PORTS: ${OVERLAY_PORTS}"
           echo "Built ports: ${BUILT_PORTS}"
 
-          for F in ${BUILT_PORTS}; do
-            echo "Built ports: ${F}"
-            echo "--------------------------------"
-            cat "${LOG_PATH}/${F}-.log"
-            echo "--------------------------------"
-          done
           ls -1 "${LOG_PATH}/errors"
 
           for F in `ls -1 "${LOG_PATH}/errors"`; do
-            if [ -f "${F}" ]; then
-              echo "Error log: ${F}"
+            FILE="${LOG_PATH}/errors/${F}"
+            if [ -f "${FILE}" ]; then
+              echo "Error log: ${FILE}"
               echo "--------------------------------"
-              cat "${F}"
+              cat "${FILE}"
               echo "--------------------------------"
             fi
           done
