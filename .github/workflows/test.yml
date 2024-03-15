@@ -54,10 +54,15 @@ jobs:
           pwd
           tree .
           ORIGINS=`find * -type d -depth 1`
-          echo ${ORIGINS}
+          echo "ORIGINS: ${ORIGINS}"
+          echo "Creating overlay."
+          poudriere ports -c -p overlay -m null -M `pwd`
+          echo "List of ports"
+          poudriere ports -l
 
+          echo "Starting build."
           for O in ${ORIGINS}; do
-            poudriere bulk -j 140amd64 -p default "${O}"
+            poudriere bulk -j 140amd64 -p default -O overlay "${O}"
           done
           poudriere status -fH
           poudriere status -f
