@@ -63,8 +63,10 @@ jobs:
           poudriere status -f
           BULK_PATH=`poudriere status  -fH | cut -f 14`
           LOG_PATH="${BULK_PATH}/logs"
+          tree ${LOG_PATH}
 
           BUILT_PORTS=`poudriere status  -fHr | grep "Built ports:" | cut -f 2 -d ":"`
+          echo "Built ports: ${BUILT_PORTS}"
 
           for F in ${BUILT_PORTS}; do
             echo "Built ports: ${F}"
