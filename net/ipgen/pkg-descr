@@ -1,0 +1,9 @@
+ipgen is a packet traffic generator that uses netmap or XDP. It can
+interactively output packets of various sizes and rates, and measure how many
+have been dropped.
+
+ipgen is implemented using the netmap feature of FreeBSD or the XDP feature of
+Linux.
+
+AF_XDP on Linux is developed and tested on Ubuntu 21.04. It should work on
+recent Fedora Linux too with some minor tweaks.o
