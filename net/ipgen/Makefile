@@ -8,7 +8,9 @@ WWW=		https://github.com/iij/ipgen
 
 LICENSE=	MIT
 
-USES=	gmake
+LIB_DEPENDS=	libevent.so:devel/libevent
+
+USES=	gmake perl5
 USE_GITHUB=	yes
 GH_TUPLE=	iij:ipgen:v${DISTVERSION}
 
