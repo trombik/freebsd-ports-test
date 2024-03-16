@@ -19,8 +19,10 @@ jobs:
     strategy:
       matrix:
         freebsd_release:
+
+          # see supported releases at:
+          # https://github.com/vmactions/freebsd-vm/tree/main/conf
           - "13.2"
-          - "13.3"
           - "14.0"
     env:
       PORTS_URL:  https://github.com/freebsd/freebsd-ports.git
