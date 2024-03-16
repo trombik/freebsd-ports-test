@@ -77,9 +77,16 @@ jobs:
           echo "List of ports"
           poudriere ports -l
 
+          VERSION=`echo ${{ matrix.freebsd_release }} | tr -d '.'`
+          ARCH="amd64"
+          JAIL_NAME="${VERSION}${ARCH}"
+          echo "VERSION=${VERSION}"
+          echo "ARCH=${ARCH}"
+          echo "JAIL_NAME=${JAIL_NAME}"
+
           echo "Starting build."
           for O in ${ORIGINS}; do
-            poudriere bulk -j 140amd64 -p default -O overlay "${O}"
+            poudriere bulk -j ${JAIL_NAME} -p default -O overlay "${O}"
           done
           poudriere status -fH
           poudriere status -f
