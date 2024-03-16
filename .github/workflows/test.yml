@@ -19,9 +19,9 @@ jobs:
     strategy:
       matrix:
         freebsd_release:
-          - 13.2
-          - 13.3
-          - 14.0
+          - "13.2"
+          - "13.3"
+          - "14.0"
     env:
       PORTS_URL:  https://github.com/freebsd/freebsd-ports.git
       MYTOKEN2: "value2"
