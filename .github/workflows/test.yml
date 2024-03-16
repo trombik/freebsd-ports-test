@@ -57,7 +57,7 @@ jobs:
           cat /usr/local/etc/poudriere.conf
 
           # i.e. 140, 131
-          VERSION=`echo ${{ matrix.freebsd_release }} | tr -d '.'
+          VERSION=`echo ${{ matrix.freebsd_release }} | tr -d '.'`
           ARCH="amd64"
           JAIL_NAME="${VERSION}${ARCH}"
           echo "VERSION=${VERSION}"
