@@ -16,6 +16,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: A job to run test in FreeBSD
+    strategy:
+      matrix:
+        freebsd_release:
+          - 13.2
+          - 13.3
+          - 14.0
     env:
       PORTS_URL:  https://github.com/freebsd/freebsd-ports.git
       MYTOKEN2: "value2"
@@ -47,8 +53,16 @@ jobs:
           echo "BASEFS=`pwd`/work/poudriere" >> /usr/local/etc/poudriere.conf
           cat /usr/local/etc/poudriere.conf
 
+          # i.e. 140, 131
+          VERSION=`echo ${{ matrix.freebsd_release }} | tr -d '.'
+          ARCH="amd64"
+          JAIL_NAME="${VERSION}${ARCH}"
+          echo "VERSION=${VERSION}"
+          echo "ARCH=${ARCH}"
+          echo "JAIL_NAME=${JAIL_NAME}"
+
           poudriere ports -c -p default -m git+https -B main
-          poudriere jail -c -j 140amd64 -m ftp -v 14.0-RELEASE
+          poudriere jail -c -j "${JAIL_NAME}" -m ftp -v ${{ matrix.freebsd_release }}-RELEASE
 
         run: |
           pwd
