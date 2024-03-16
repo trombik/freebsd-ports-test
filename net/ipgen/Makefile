@@ -15,5 +15,6 @@ USE_GITHUB=	yes
 GH_TUPLE=	iij:ipgen:v${DISTVERSION}
 
 MAKEFILE=	GNUmakefile
+ALL_TARGET=	depend all
 
 .include <bsd.port.mk>
