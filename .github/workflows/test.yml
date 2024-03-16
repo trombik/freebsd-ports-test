@@ -31,6 +31,7 @@ jobs:
       id: test
       uses: vmactions/freebsd-vm@v1
       with:
+        release: ${{ matrix.freebsd_release }}
         envs: 'MYTOKEN2'
         usesh: true
         sync: rsync
