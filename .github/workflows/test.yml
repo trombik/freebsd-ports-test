@@ -86,7 +86,7 @@ jobs:
 
           echo "Starting build."
           for O in ${ORIGINS}; do
-            poudriere bulk -j ${JAIL_NAME} -p default -O overlay "${O}"
+            poudriere bulk -j ${JAIL_NAME} -p default -O overlay -t "${O}"
           done
           poudriere status -fH
           poudriere status -f
