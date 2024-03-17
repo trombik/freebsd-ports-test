@@ -17,4 +17,7 @@ GH_TUPLE=	iij:ipgen:v${DISTVERSION}
 MAKEFILE=	GNUmakefile
 ALL_TARGET=	depend all
 
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/gen/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/
+
 .include <bsd.port.mk>
