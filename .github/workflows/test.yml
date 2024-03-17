@@ -86,7 +86,7 @@ jobs:
 
           echo "Starting build."
           for O in ${ORIGINS}; do
-            poudriere bulk -j ${JAIL_NAME} -p default -O overlay -t "${O}"
+            poudriere bulk -j ${JAIL_NAME} -p default -O overlay -b latest -t "${O}"
           done
           poudriere status -fH
           poudriere status -f
@@ -111,6 +111,7 @@ jobs:
           done
 
           # remove jails and ports, takes too long to sync them on host
+          chflags -R /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/ports
 
