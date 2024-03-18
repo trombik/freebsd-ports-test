@@ -39,7 +39,6 @@ jobs:
         sync: rsync
         copyback: true
         prepare: |
-          set -e -x
           pwd
           ls -al
           pkg install -y ports-mgmt/poudriere-devel devel/git sysutils/tree
@@ -69,6 +68,7 @@ jobs:
           poudriere jail -c -j "${JAIL_NAME}" -m ftp -v ${{ matrix.freebsd_release }}-RELEASE
 
         run: |
+          set -e -x
           TEST_RESULT=1
           pwd
           tree .
