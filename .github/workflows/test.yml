@@ -39,6 +39,7 @@ jobs:
         sync: rsync
         copyback: true
         prepare: |
+          set -e -x
           pwd
           ls -al
           pkg install -y ports-mgmt/poudriere-devel devel/git sysutils/tree
