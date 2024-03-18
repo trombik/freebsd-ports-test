@@ -102,7 +102,7 @@ jobs:
 
           ERROR_LOGS=`ls -1 "${LOG_PATH}/errors"`
 
-          if [ -z "${ERROR_LOGS}" ]; then
+          if [ ! -z "${ERROR_LOGS}" ]; then
             echo "Failed build logs: ${ERROR_LOGS}"
             for F in ${ERROR_LOGS}; do
               FILE="${LOG_PATH}/errors/${F}"
