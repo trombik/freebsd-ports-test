@@ -68,6 +68,7 @@ jobs:
           poudriere jail -c -j "${JAIL_NAME}" -m ftp -v ${{ matrix.freebsd_release }}-RELEASE
 
         run: |
+          TEST_RESULT=1
           pwd
           tree .
           ORIGINS=`find * -type d -depth 1`
@@ -98,22 +99,29 @@ jobs:
           echo "OVERLAY_PORTS: ${OVERLAY_PORTS}"
           echo "Built ports: ${BUILT_PORTS}"
 
-          ls -1 "${LOG_PATH}/errors"
+          ERROR_LOGS=`ls -1 "${LOG_PATH}/errors"`
 
-          for F in `ls -1 "${LOG_PATH}/errors"`; do
-            FILE="${LOG_PATH}/errors/${F}"
-            if [ -f "${FILE}" ]; then
-              echo "Error log: ${FILE}"
-              echo "--------------------------------"
-              cat "${FILE}"
-              echo "--------------------------------"
-            fi
-          done
+          if [ -z "${ERROR_LOGS}" ]; then
+            echo "Failed build logs: ${ERROR_LOGS}"
+            for F in ${ERROR_LOGS}; do
+              FILE="${LOG_PATH}/errors/${F}"
+              if [ -f "${FILE}" ]; then
+                echo "Error log: ${FILE}"
+                echo "--------------------------------"
+                cat "${FILE}"
+                echo "--------------------------------"
+              fi
+            done
+          else
+            TEST_RESULT=0
+          fi
 
           # remove jails and ports, takes too long to sync them on host
-          chflags -R /home/runner/work/poudriere/jails
+          chflags -R noschg /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/ports
+
+          exit ${TEST_RESULT}
 
 
     - name: Upload logs
