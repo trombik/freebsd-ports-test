@@ -121,7 +121,9 @@ jobs:
           rm -rf /home/runner/work/poudriere/jails
           rm -rf /home/runner/work/poudriere/ports
 
-          exit ${TEST_RESULT}
+          if [ ${TEST_RESULT} -eq 1 ]; then
+            false
+          end
 
 
     - name: Upload logs
