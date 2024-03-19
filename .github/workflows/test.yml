@@ -1,5 +1,4 @@
-name: Test
-
+name: Build ports
 on:
   - push
 jobs:
