@@ -4,16 +4,8 @@ on:
   - push
 jobs:
   test:
-    runs-on: ubuntu-latest
-    name: A job to run test in FreeBSD
-    strategy:
-      matrix:
-        freebsd_release:
-
-          # see supported releases at:
-          # https://github.com/vmactions/freebsd-vm/tree/main/conf
-          - "13.2"
-          - "14.0"
     uses: trombik/freebsd-ports-actions/.github/workflows/test.yml@main
     with:
-      freebsd_versions: ${{ matrix.freebsd_release }}
+      # see supported releases at:
+      # https://github.com/vmactions/freebsd-vm/tree/main/conf
+      freebsd_versions: "14.0"
