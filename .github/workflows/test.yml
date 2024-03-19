@@ -2,7 +2,6 @@ name: Test
 
 on:
   - push
-    # jobs.*.uses
 jobs:
   test:
     runs-on: ubuntu-latest
