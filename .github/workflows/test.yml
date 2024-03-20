@@ -1,3 +1,4 @@
+---
 name: Build ports
 on:
   - push
