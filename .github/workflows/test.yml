@@ -11,5 +11,6 @@ jobs:
       freebsd_versions: "14.0"
   portlint:
     uses: trombik/freebsd-ports-actions/.github/workflows/portlint.yml@main
+
   yamllint:
     uses: trombik/freebsd-ports-actions/.github/workflows/yamllint.yml@main
