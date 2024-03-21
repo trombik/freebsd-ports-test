@@ -13,5 +13,6 @@ jobs:
 
   portlint:
     uses: trombik/freebsd-ports-actions/.github/workflows/portlint.yml@main
+
   yamllint:
     uses: trombik/freebsd-ports-actions/.github/workflows/yamllint.yml@main
