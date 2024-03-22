@@ -2,6 +2,8 @@
 name: Build ports
 on:
   - push
+env:
+  ACTIONS_RUNNER_DEBUG: true
 jobs:
   test:
     uses: trombik/freebsd-ports-actions/.github/workflows/test.yml@feat-cache
