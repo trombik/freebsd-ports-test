@@ -2,8 +2,6 @@
 name: Build ports
 on:
   - push
-env:
-  ACTIONS_RUNNER_DEBUG: true
 jobs:
   test:
     uses: trombik/freebsd-ports-actions/.github/workflows/test.yml@feat-cache
@@ -15,5 +13,6 @@ jobs:
 
   portlint:
     uses: trombik/freebsd-ports-actions/.github/workflows/portlint.yml@main
+
   yamllint:
     uses: trombik/freebsd-ports-actions/.github/workflows/yamllint.yml@main
