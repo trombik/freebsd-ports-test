@@ -4,7 +4,7 @@ on:
   - push
 jobs:
   test:
-    uses: trombik/freebsd-ports-actions/.github/workflows/test.yml@feat-cache
+    uses: trombik/freebsd-ports-actions/.github/workflows/test.yml@main
     with:
 
       # see supported releases at:
